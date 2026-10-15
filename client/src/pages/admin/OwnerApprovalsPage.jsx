@@ -263,17 +263,18 @@ export function OwnerApprovalsPage() {
 
       {/* Confirm Dialog */}
       <ConfirmDialog
-        open={confirmDialog.open}
+        isOpen={confirmDialog.open}
         onClose={() => setConfirmDialog({ open: false, action: null, user: null })}
         onConfirm={handleApprovalAction}
         title={confirmDialog.action === 'approved' ? 'Approve Owner Account' : 'Reject Owner Account'}
-        description={
+        message={
           confirmDialog.action === 'approved'
             ? `Are you sure you want to approve ${confirmDialog.user?.name}'s owner account? They will be able to create property listings.`
             : `Are you sure you want to reject ${confirmDialog.user?.name}'s owner application? They will be notified.`
         }
-        confirmLabel={confirmDialog.action === 'approved' ? 'Approve' : 'Reject'}
-        variant={confirmDialog.action === 'approved' ? 'primary' : 'danger'}
+        confirmText={confirmDialog.action === 'approved' ? 'Approve' : 'Reject'}
+        confirmVariant={confirmDialog.action === 'approved' ? 'primary' : 'danger'}
+        loading={Boolean(actionLoading)}
       />
     </div>
   );

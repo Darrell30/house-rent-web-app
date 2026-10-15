@@ -68,15 +68,16 @@ export function AdminPropertiesPage() {
 
   const handleToggleArchive = async () => {
     const { property } = confirmDialog;
+    if (!property) return;
     setConfirmDialog({ open: false, property: null });
     setActionLoading(property._id);
     try {
       await adminService.toggleArchiveProperty(property._id);
       const label = property.isArchived ? 'restored' : 'archived';
       toast.success(`Property "${property.title}" ${label}`);
-      fetchProperties();
+      await fetchProperties();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Action failed');
+      toast.error(err.message || 'Action failed');
     } finally {
       setActionLoading(null);
     }
@@ -300,19 +301,20 @@ export function AdminPropertiesPage() {
 
       {/* Confirm Dialog */}
       <ConfirmDialog
-        open={confirmDialog.open}
+        isOpen={confirmDialog.open}
         onClose={() => setConfirmDialog({ open: false, property: null })}
         onConfirm={handleToggleArchive}
         title={
           confirmDialog.property?.isArchived ? 'Restore Property' : 'Archive Property'
         }
-        description={
+        message={
           confirmDialog.property?.isArchived
             ? `Restore "${confirmDialog.property?.title}"? It will become visible to tenants again.`
             : `Archive "${confirmDialog.property?.title}"? It will be hidden from tenants and search results.`
         }
-        confirmLabel={confirmDialog.property?.isArchived ? 'Restore' : 'Archive'}
-        variant={confirmDialog.property?.isArchived ? 'primary' : 'danger'}
+        confirmText={confirmDialog.property?.isArchived ? 'Restore' : 'Archive'}
+        confirmVariant={confirmDialog.property?.isArchived ? 'primary' : 'danger'}
+        loading={Boolean(actionLoading)}
       />
     </div>
   );
