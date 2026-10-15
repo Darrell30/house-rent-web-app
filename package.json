@@ -1,0 +1,37 @@
+{
+  "name": "househunt",
+  "version": "1.0.0",
+  "description": "HouseHunt - A Complete MERN Stack House Rental Web Application",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "mongo": "npm --prefix server run mongo",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start": "npm --prefix server start",
+    "seed": "npm --prefix server run seed",
+    "test:server": "npm --prefix server test",
+    "test:client": "npm --prefix client test",
+    "test": "npm run test:server && npm run test:client",
+    "build": "npm --prefix client run build",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "mern",
+    "real-estate",
+    "house-rental",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "SkillWallet Full-Stack Capstone",
+  "license": "ISC"
+}
