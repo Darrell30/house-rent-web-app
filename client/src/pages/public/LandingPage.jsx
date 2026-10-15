@@ -342,12 +342,18 @@ export const LandingPage = () => {
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-3">
             <Link to="/properties">
-              <Button size="lg" className="bg-white text-teal-800 hover:bg-teal-50 font-bold">
+              <Button
+                size="lg"
+                className="bg-white text-teal-700 hover:bg-teal-900 hover:text-white font-bold border border-white hover:border-teal-900 shadow-md transition-all duration-200 focus:ring-white focus:ring-offset-teal-700"
+              >
                 Browse All Properties
               </Button>
             </Link>
             <Link to="/register">
-              <Button size="lg" variant="outline" className="text-white border-white/40 hover:bg-white/10 font-bold">
+              <Button
+                size="lg"
+                className="bg-white text-teal-700 hover:bg-teal-900 hover:text-white font-bold border border-white hover:border-teal-900 shadow-md transition-all duration-200 focus:ring-white focus:ring-offset-teal-700"
+              >
                 Create Account
               </Button>
             </Link>

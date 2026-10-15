@@ -1,5 +1,9 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export const cn = (...inputs) => twMerge(clsx(inputs));
 
 const variants = {
   primary: 'bg-teal-600 text-white hover:bg-teal-700 focus:ring-teal-500 shadow-sm',
@@ -30,7 +34,12 @@ export const Button = ({
     <button
       type={type}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${variants[variant]} ${sizes[size]} ${className}`}
+      className={cn(
+        'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+        variants[variant],
+        sizes[size],
+        className
+      )}
       {...props}
     >
       {loading ? (
@@ -42,3 +51,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;
