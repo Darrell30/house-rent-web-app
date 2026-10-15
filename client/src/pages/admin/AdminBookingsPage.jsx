@@ -2,12 +2,21 @@ import { useState, useEffect, useCallback } from 'react';
 import { CalendarDays, RefreshCw, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+<<<<<<< HEAD
 import adminService from '../../services/adminService';
 import EmptyState from '../../components/ui/EmptyState';
 import Pagination from '../../components/common/Pagination';
 import { formatDate, formatIDR } from '../../utils/formatters';
 import { BOOKING_STATUS_CONFIG } from '../../utils/constants';
 import Button from '../../components/ui/Button';
+=======
+import { adminService } from '../../services/adminService';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { Pagination } from '../../components/common/Pagination';
+import { formatDate, formatIDR } from '../../utils/formatters';
+import { BOOKING_STATUS_CONFIG } from '../../utils/constants';
+import { Button } from '../../components/ui/Button';
+>>>>>>> master
 
 const STATUS_TABS = [
   { key: '', label: 'All' },
@@ -32,8 +41,15 @@ export default function AdminBookingsPage() {
         limit: 15,
         status: statusFilter || undefined,
       });
+<<<<<<< HEAD
       setBookings(res.data?.bookings || []);
       setPagination(res.data?.pagination || { page: 1, totalPages: 1, total: 0 });
+=======
+      setBookings(res.data || []);
+      setPagination(
+        res.meta || { page: 1, totalPages: 1, total: 0 }
+      );
+>>>>>>> master
     } catch {
       toast.error('Failed to load bookings');
     } finally {

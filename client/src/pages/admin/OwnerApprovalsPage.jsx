@@ -1,11 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { UserCheck, UserX, Clock, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
+<<<<<<< HEAD
 import adminService from '../../services/adminService';
 import Button from '../../components/ui/Button';
 import StatCard from '../../components/ui/StatCard';
 import EmptyState from '../../components/ui/EmptyState';
 import ConfirmDialog from '../../components/common/ConfirmDialog';
+=======
+import { adminService } from '../../services/adminService';
+import { Button } from '../../components/ui/Button';
+import { StatCard } from '../../components/ui/StatCard';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { ConfirmDialog } from '../../components/common/ConfirmDialog';
+>>>>>>> master
 import { formatDate } from '../../utils/formatters';
 
 const APPROVAL_TABS = [
@@ -32,7 +40,11 @@ export default function OwnerApprovalsPage() {
     setLoading(true);
     try {
       const res = await adminService.getUsers({ role: 'owner', ownerApprovalStatus: activeTab, limit: 100 });
+<<<<<<< HEAD
       setOwners(res.data?.users || []);
+=======
+      setOwners(res.data || []);
+>>>>>>> master
     } catch {
       toast.error('Failed to load owner applications');
     } finally {
@@ -48,9 +60,15 @@ export default function OwnerApprovalsPage() {
         adminService.getUsers({ role: 'owner', ownerApprovalStatus: 'rejected', limit: 1 }),
       ]);
       setStats({
+<<<<<<< HEAD
         pending: pendingRes.data?.pagination?.total ?? 0,
         approved: approvedRes.data?.pagination?.total ?? 0,
         rejected: rejectedRes.data?.pagination?.total ?? 0,
+=======
+        pending: pendingRes.meta?.total ?? 0,
+        approved: approvedRes.meta?.total ?? 0,
+        rejected: rejectedRes.meta?.total ?? 0,
+>>>>>>> master
       });
     } catch {
       // stats are non-critical
@@ -228,6 +246,7 @@ export default function OwnerApprovalsPage() {
                         </span>
                       </td>
                       {activeTab === 'pending' && (
+<<<<<<< HEAD
                         <td className="pl-4 pr-6 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <Button
@@ -248,6 +267,46 @@ export default function OwnerApprovalsPage() {
                               <UserCheck className="w-3.5 h-3.5 mr-1" />
                               Approve
                             </Button>
+=======
+                        <td className="pl-4 pr-6 py-4 text-right">                
+                          <div className="flex items-center justify-end gap-3 min-w-[220px]">
+                            <button
+                              type="button"
+                              onClick={() => handleApproval(owner._id, 'rejected')}
+                              className="
+                                inline-flex items-center justify-center gap-2
+                                min-w-[100px] px-4 py-2
+                                rounded-lg border border-slate-300
+                                bg-white text-slate-700
+                                text-sm font-semibold whitespace-nowrap
+                                hover:bg-slate-100 hover:border-slate-400
+                                transition-colors duration-200
+                                focus-visible:outline-none focus-visible:ring-2
+                                focus-visible:ring-slate-400
+                              "
+                            >
+                              <UserX className="w-4 h-4 shrink-0" />
+                              <span>Reject</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleApproval(owner._id, 'approved')}
+                              className="
+                                inline-flex items-center justify-center gap-2
+                                min-w-[110px] px-4 py-2
+                                rounded-lg
+                                bg-teal-600 text-white
+                                text-sm font-semibold whitespace-nowrap
+                                hover:bg-teal-700
+                                transition-colors duration-200
+                                focus-visible:outline-none focus-visible:ring-2
+                                focus-visible:ring-teal-500
+                              "
+                            >
+                              <UserCheck className="w-4 h-4 shrink-0" />
+                              <span>Approve</span>
+                            </button>
+>>>>>>> master
                           </div>
                         </td>
                       )}

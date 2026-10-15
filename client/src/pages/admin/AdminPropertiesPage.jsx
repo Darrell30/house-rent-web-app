@@ -2,11 +2,19 @@ import { useState, useEffect, useCallback } from 'react';
 import { Building2, Archive, ArchiveRestore, Search, RefreshCw, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+<<<<<<< HEAD
 import adminService from '../../services/adminService';
 import Button from '../../components/ui/Button';
 import EmptyState from '../../components/ui/EmptyState';
 import Pagination from '../../components/common/Pagination';
 import ConfirmDialog from '../../components/common/ConfirmDialog';
+=======
+import { adminService } from '../../services/adminService';
+import { Button } from '../../components/ui/Button';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { Pagination } from '../../components/common/Pagination';
+import { ConfirmDialog } from '../../components/common/ConfirmDialog';
+>>>>>>> master
 import { formatIDR, formatDate } from '../../utils/formatters';
 import { AVAILABILITY_STATUS_CONFIG } from '../../utils/constants';
 
@@ -35,8 +43,15 @@ export default function AdminPropertiesPage() {
         search: search || undefined,
         isArchived: activeTab === 'archived',
       });
+<<<<<<< HEAD
       setProperties(res.data?.properties || []);
       setPagination(res.data?.pagination || { page: 1, totalPages: 1, total: 0 });
+=======
+      setProperties(res.data || []);
+      setPagination(
+        res.meta || { page: 1, totalPages: 1, total: 0 }
+      );
+>>>>>>> master
     } catch {
       toast.error('Failed to load properties');
     } finally {
