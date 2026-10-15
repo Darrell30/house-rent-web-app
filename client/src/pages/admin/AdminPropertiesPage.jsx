@@ -2,19 +2,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { Building2, Archive, ArchiveRestore, Search, RefreshCw, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-<<<<<<< HEAD
-import adminService from '../../services/adminService';
-import Button from '../../components/ui/Button';
-import EmptyState from '../../components/ui/EmptyState';
-import Pagination from '../../components/common/Pagination';
-import ConfirmDialog from '../../components/common/ConfirmDialog';
-=======
 import { adminService } from '../../services/adminService';
 import { Button } from '../../components/ui/Button';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Pagination } from '../../components/common/Pagination';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
->>>>>>> master
 import { formatIDR, formatDate } from '../../utils/formatters';
 import { AVAILABILITY_STATUS_CONFIG } from '../../utils/constants';
 
@@ -23,7 +15,7 @@ const ARCHIVE_TABS = [
   { key: 'archived', label: 'Archived' },
 ];
 
-export default function AdminPropertiesPage() {
+export function AdminPropertiesPage() {
   const [properties, setProperties] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
   const [loading, setLoading] = useState(true);
@@ -43,15 +35,11 @@ export default function AdminPropertiesPage() {
         search: search || undefined,
         isArchived: activeTab === 'archived',
       });
-<<<<<<< HEAD
-      setProperties(res.data?.properties || []);
-      setPagination(res.data?.pagination || { page: 1, totalPages: 1, total: 0 });
-=======
-      setProperties(res.data || []);
+      const propList = Array.isArray(res.data) ? res.data : (res.data?.properties || []);
+      setProperties(propList);
       setPagination(
-        res.meta || { page: 1, totalPages: 1, total: 0 }
+        res.meta || res.data?.pagination || { page: 1, totalPages: 1, total: propList.length }
       );
->>>>>>> master
     } catch {
       toast.error('Failed to load properties');
     } finally {
@@ -242,7 +230,7 @@ export default function AdminPropertiesPage() {
                       </td>
                       <td className="px-4 py-4">
                         <p className="text-sm font-semibold text-slate-800">
-                          {formatIDR(property.rentPrice)}
+                          {formatIDR(property.monthlyRent ?? property.rentPrice)}
                         </p>
                       </td>
                       <td className="px-4 py-4">
@@ -329,3 +317,5 @@ export default function AdminPropertiesPage() {
     </div>
   );
 }
+
+export default AdminPropertiesPage;

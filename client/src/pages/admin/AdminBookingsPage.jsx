@@ -2,21 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { CalendarDays, RefreshCw, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-<<<<<<< HEAD
-import adminService from '../../services/adminService';
-import EmptyState from '../../components/ui/EmptyState';
-import Pagination from '../../components/common/Pagination';
-import { formatDate, formatIDR } from '../../utils/formatters';
-import { BOOKING_STATUS_CONFIG } from '../../utils/constants';
-import Button from '../../components/ui/Button';
-=======
 import { adminService } from '../../services/adminService';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Pagination } from '../../components/common/Pagination';
 import { formatDate, formatIDR } from '../../utils/formatters';
 import { BOOKING_STATUS_CONFIG } from '../../utils/constants';
 import { Button } from '../../components/ui/Button';
->>>>>>> master
 
 const STATUS_TABS = [
   { key: '', label: 'All' },
@@ -26,7 +17,7 @@ const STATUS_TABS = [
   { key: 'cancelled', label: 'Cancelled' },
 ];
 
-export default function AdminBookingsPage() {
+export function AdminBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
   const [loading, setLoading] = useState(true);
@@ -41,15 +32,11 @@ export default function AdminBookingsPage() {
         limit: 15,
         status: statusFilter || undefined,
       });
-<<<<<<< HEAD
-      setBookings(res.data?.bookings || []);
-      setPagination(res.data?.pagination || { page: 1, totalPages: 1, total: 0 });
-=======
-      setBookings(res.data || []);
+      const bookingsList = Array.isArray(res.data) ? res.data : (res.data?.bookings || []);
+      setBookings(bookingsList);
       setPagination(
-        res.meta || { page: 1, totalPages: 1, total: 0 }
+        res.meta || res.data?.pagination || { page: 1, totalPages: 1, total: bookingsList.length }
       );
->>>>>>> master
     } catch {
       toast.error('Failed to load bookings');
     } finally {
@@ -184,15 +171,15 @@ export default function AdminBookingsPage() {
                       </td>
                       <td className="px-4 py-4">
                         <p className="text-sm text-slate-700">
-                          {booking.preferredMoveInDate
-                            ? formatDate(booking.preferredMoveInDate)
+                          {booking.moveInDate || booking.preferredMoveInDate
+                            ? formatDate(booking.moveInDate || booking.preferredMoveInDate)
                             : '—'}
                         </p>
                       </td>
                       <td className="px-4 py-4">
                         <p className="text-sm font-semibold text-slate-700">
-                          {booking.property?.rentPrice
-                            ? formatIDR(booking.property.rentPrice)
+                          {booking.property?.monthlyRent ?? booking.property?.rentPrice
+                            ? formatIDR(booking.property.monthlyRent ?? booking.property.rentPrice)
                             : '—'}
                         </p>
                       </td>
@@ -241,3 +228,5 @@ export default function AdminBookingsPage() {
     </div>
   );
 }
+
+export default AdminBookingsPage;

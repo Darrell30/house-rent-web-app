@@ -17,10 +17,7 @@ import {
   Clock,
   ArrowRight,
   Compass,
-<<<<<<< HEAD
-=======
   MessageCircle,
->>>>>>> master
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { NotificationDropdown } from '../common/NotificationDropdown';
@@ -47,10 +44,7 @@ export const DashboardLayout = () => {
       { name: 'Dashboard', path: '/tenant/dashboard', icon: LayoutDashboard },
       { name: 'My Bookings', path: '/tenant/bookings', icon: Calendar },
       { name: 'Saved Properties', path: '/tenant/saved', icon: Heart },
-<<<<<<< HEAD
-=======
       { name: 'Messages', path: '/tenant/messages', icon: MessageCircle },
->>>>>>> master
       { name: 'My Profile', path: '/tenant/profile', icon: User },
     ];
   } else if (isOwner) {
@@ -60,10 +54,7 @@ export const DashboardLayout = () => {
       { name: 'My Properties', path: '/owner/properties', icon: Building2 },
       { name: 'Add Property', path: '/owner/properties/add', icon: PlusCircle },
       { name: 'Booking Requests', path: '/owner/bookings', icon: Calendar },
-<<<<<<< HEAD
-=======
       { name: 'Messages', path: '/owner/messages', icon: MessageCircle },
->>>>>>> master
       { name: 'My Profile', path: '/owner/profile', icon: User },
     ];
   } else if (isAdmin) {
